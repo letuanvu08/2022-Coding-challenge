@@ -1,3 +1,4 @@
+
 const WIDTH = 1200;
 const HEIGHT = 800;
 
@@ -125,6 +126,9 @@ function start() {
   setInterval(loop, 5000);
 }
 
+
+
+
 async function loop() {
   try {
     const resp = await loadData();
@@ -155,7 +159,25 @@ const sampleOfficers = [
   { id: 3, badgeName: "OF3", loc: { x: 10, y: 20 } },
 ];
 
+const buffer = []
+
+
+
 async function loadData() {
+  fetch('http://localhost:8080/api/v1/state')
+  .then(
+  function(response) {
+    if (response.status !== 200) {
+      console.log('Lỗi, mã lỗi ' + response.status);
+      return;
+    }
+    // parse response data
+    response.text().then(res => console.log(res));
+  }
+  )
+  .catch(err => {
+    console.log('Error :-S', err)
+  });
   return {
     data: {
       incidents: sampleIncidents,
